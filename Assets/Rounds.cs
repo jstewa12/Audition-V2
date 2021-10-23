@@ -1,4 +1,3 @@
-
 //Main chunk of code for game
 //Changes to be made:
 //add changes to judges faces when you get an answer wrong
@@ -32,6 +31,11 @@ public class Rounds : MonoBehaviour
 	public static float choice;
 	public static int question;
 	public static bool over;
+    public static bool judgesHappy;
+    public GameObject Judge;
+    public Sprite cleaner;
+    public Sprite UFO;
+    float addOrNot;
 	Text roundNum;
 	float interval;
 	bool start;
@@ -162,8 +166,12 @@ string[] no = {
 			if (choice > .5)
 			{
 				updateScore(2);
+                StartCoroutine(changeBackground(80f, 200f, 120f));
+                judgesHappy = true;
 			} else {
 				updateScore(-1);
+                StartCoroutine(changeBackground(238f, 75f, 43f));
+                judgesHappy = false;
 			}
 			newRound();
 		}
@@ -178,8 +186,12 @@ string[] no = {
 			if (choice > .5)
 			{
 				updateScore(-1);
+                StartCoroutine(changeBackground(238f, 75f, 43f));
+                judgesHappy = false;
 			} else {
 				updateScore(2);
+                StartCoroutine(changeBackground(80f, 200f, 120f));
+                judgesHappy = true;
 			}
 			newRound();
 		}
@@ -192,6 +204,17 @@ string[] no = {
 			newRound();
 		}
     }
+
+    // changes backgrounud color then reverts it background
+    IEnumerator changeBackground(float x, float y, float z)
+    {
+        Camera.main.GetComponent<Camera>().backgroundColor =
+            new Color(x / 255f, y / 255f, z / 255f);
+        yield return new WaitForSeconds(0.25f);
+        Camera.main.GetComponent<Camera>().backgroundColor =
+            new Color(55f / 255f, 77f / 255f, 118f / 255f);
+    }
+
 	//initiates a new round
 	//called after each button press
 	void newRound()
@@ -199,18 +222,26 @@ string[] no = {
 		rounds = rounds - 1;
 		MainText.output.text = "";
 		pickText();
+        addDistraction();
 		Score.output.text = "Score: " + Score.score.ToString();
 		roundNum.text = "Round: " + rounds.ToString();
 		SC_CountdownTimer.countdownTime -= interval;
 		SC_CountdownTimer.countdownInternal = SC_CountdownTimer.countdownTime;
-		if((choice > .95))
-		{
-			distraction(1);
-		} if(choice < .05)
-		{
-			distraction(0);
-		}
 	}
+
+    // add distraction into play field
+    public void addDistraction()
+    {
+        addOrNot = (Random.value);
+        if (addOrNot < 0.15) {
+            Judge.GetComponent<SpriteRenderer>().sprite = UFO;
+        } else if (addOrNot < 0.3) {
+            Judge.GetComponent<SpriteRenderer>().sprite = cleaner;
+        } else {
+            Judge.GetComponent<SpriteRenderer>().sprite = null;
+        }
+    }
+
 	//places right/wrong answer on certain sides of the screen
 	void pickText()
 	{
@@ -231,7 +262,6 @@ string[] no = {
 	{
 		Score.score += mult*100*Mathf.RoundToInt(SC_CountdownTimer.countdownInternal)
                     / Mathf.RoundToInt(SC_CountdownTimer.countdownTime);
-		faces(mult);
 	}
 	//game over screen
 	void endstate()
@@ -253,16 +283,6 @@ string[] no = {
     		MainText.output.text = "Game Over: " + Score.score + " Points";
     		start = false;
         }
-	}
-	//n = 1 or 0 because there are two different distractions
-	void distraction(int n)
-	{
-		
-	}
-	//n = 1 for happy, -1 for sad
-	void faces(int n)
-	{
-		
 	}
 
 }

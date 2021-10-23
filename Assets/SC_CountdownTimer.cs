@@ -1,4 +1,12 @@
-//straight copy-pasted from the web
+
+
+
+
+
+//please do not delete anything
+//do not edit unless necessary
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,36 +19,27 @@ public class SC_CountdownTimer : MonoBehaviour
     public bool showMilliseconds = true; //Whether to show milliseconds in countdown formatting
     public static float countdownTime = 20; //Countdown time in seconds
 
-    public static Text countdownText;
+    Text countdownText;
     public static float countdownInternal;
     public static bool countdownOver = false;
-    public static bool timerRunning = false;
 
     // Start is called before the first frame update
     void Start()
     {
         countdownText = GetComponent<Text>();
-        countdownText.text = FormatTime(countdownInternal, countdownFormatting,
-                                                      showMilliseconds);
         countdownInternal = countdownTime; //Initialize countdown
-        FormatTime(20, countdownFormatting, showMilliseconds);
     }
 
-    void FixedUpdate() {
-        if ((Input.GetKeyDown(KeyCode.LeftArrow)) ||
-           (Input.GetKeyDown(KeyCode.RightArrow)) ||
-           timerRunning == true) {
-               timerRunning = true;
-               runTimer();
-           }
-    }
-
-
-    void runTimer()
+    void FixedUpdate()
     {
         if (countdownInternal > 0)
         {
             countdownInternal -= Time.deltaTime;
+
+            if ((countdownInternal <= 5) && (countdownInternal >= 4))
+            {
+                StartCoroutine(changeBackground(253f, 218f, 13f));
+            }
 
             //Clamp the timer value so it never goes below 0
             if (countdownInternal < 0)
@@ -48,22 +47,28 @@ public class SC_CountdownTimer : MonoBehaviour
                 countdownInternal = 0;
             }
 
-            countdownText.text = FormatTime(countdownInternal,
-                                            countdownFormatting,
-                                            showMilliseconds);
+            countdownText.text = FormatTime(countdownInternal, countdownFormatting, showMilliseconds);
         }
         else
         {
             if (!countdownOver)
             {
                 countdownOver = true;
-				Rounds.over = true;
 
                 Debug.Log("Countdown has finished running...");
 
                 //Your code here...
             }
         }
+    }
+
+    IEnumerator changeBackground(float x, float y, float z)
+    {
+        Camera.main.GetComponent<Camera>().backgroundColor =
+            new Color(x / 255f, y / 255f, z / 255f);
+        yield return new WaitForSeconds(1.0f);
+        Camera.main.GetComponent<Camera>().backgroundColor =
+            new Color(55f / 255f, 77f / 255f, 118f / 255f);
     }
 
     string FormatTime(double time, CountdownFormatting formatting, bool includeMilliseconds)
