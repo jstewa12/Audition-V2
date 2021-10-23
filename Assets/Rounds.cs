@@ -43,7 +43,7 @@ public class Rounds : MonoBehaviour
 
 //array of potential questions: order matters
 //see line 123 if you add questions
-string[] question = {
+string[] q = {
 "How do you do in front of the camera?", 
 "What is your approach to acting in general?", 
 "How do you work with other actors, as well as crew and directors?", 
