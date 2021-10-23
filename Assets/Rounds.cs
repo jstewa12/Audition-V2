@@ -203,6 +203,13 @@ string[] no = {
 		roundNum.text = "Round: " + rounds.ToString();
 		SC_CountdownTimer.countdownTime -= interval;
 		SC_CountdownTimer.countdownInternal = SC_CountdownTimer.countdownTime;
+		if((choice > .95))
+		{
+			distraction(1);
+		} if(choice < .05)
+		{
+			distraction(0);
+		}
 	}
 	//places right/wrong answer on certain sides of the screen
 	void pickText()
@@ -224,6 +231,7 @@ string[] no = {
 	{
 		Score.score += mult*100*Mathf.RoundToInt(SC_CountdownTimer.countdownInternal)
                     / Mathf.RoundToInt(SC_CountdownTimer.countdownTime);
+		faces(mult);
 	}
 	//game over screen
 	void endstate()
@@ -245,6 +253,16 @@ string[] no = {
     		MainText.output.text = "Game Over: " + Score.score + " Points";
     		start = false;
         }
+	}
+	//n = 1 or 0 because there are two different distractions
+	void distraction(int n)
+	{
+		
+	}
+	//n = 1 for happy, -1 for sad
+	void faces(int n)
+	{
+		
 	}
 
 }
