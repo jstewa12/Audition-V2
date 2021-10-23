@@ -1,3 +1,4 @@
+
 //Main chunk of code for game
 //Changes to be made:
 //add changes to judges faces when you get an answer wrong
@@ -34,7 +35,6 @@ public class Rounds : MonoBehaviour
 	Text roundNum;
 	float interval;
 	bool start;
-	bool restart;
     bool won;
 
 //array of potential questions: order matters
@@ -107,9 +107,7 @@ string[] no = {
 		start = false;
 		MainText.output.text = "Press the left or right arrow key to start";
 		rounds = 10;
-		restart = false;
-        SC_CountdownTimer.countdownInternal = 20;
-		SC_CountdownTimer.countdownTime = SC_CountdownTimer.countdownInternal;
+		SC_CountdownTimer.countdownInternal = 0;
         roundNum = GetComponent<Text>();
         roundNum.text = "Round: " + rounds.ToString();
         won = false;
@@ -120,10 +118,10 @@ string[] no = {
 		//x.variable means variable in script x
 		//set values to initial condition
 		//some stuff here is useless, but don't delete anything
+		SC_CountdownTimer.countdownOver = false;
 		SC_CountdownTimer.countdownInternal = 20;
 		SC_CountdownTimer.countdownTime = SC_CountdownTimer.countdownInternal;
 		Score.score = 0;
-		SC_CountdownTimer.countdownOver = false;
 		roundNum = GetComponent<Text>();
         roundNum.text = "Round: " + rounds.ToString();
 		rounds = 10;
@@ -145,9 +143,10 @@ string[] no = {
 		if (rounds == 0)
 		{
 			endstate();
-			if (Input.GetKeyDown(KeyCode.LeftArrow))
+			if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
 			{
 				initiate();
+				start = true;
 			}
 			return;
 		}
@@ -184,34 +183,26 @@ string[] no = {
 			}
 			newRound();
 		}
-		//do not know what the hell this is for, but don't delete
-		if (over)
+		//if countdown finishes
+		if (SC_CountdownTimer.countdownOver && start)
 		{
 			SC_CountdownTimer.countdownOver = false;
-			Debug.Log("over");
+			SC_CountdownTimer.countdownInternal = SC_CountdownTimer.countdownTime;
+			Score.score -= 100;
+			newRound();
 		}
     }
 	//initiates a new round
 	//called after each button press
 	void newRound()
 	{
-
 		rounds = rounds - 1;
 		MainText.output.text = "";
 		pickText();
 		Score.output.text = "Score: " + Score.score.ToString();
 		roundNum.text = "Round: " + rounds.ToString();
-        
-		//sets new time with subtracted interval
-		//90% sure there is a bug here, will look into it
-		if (SC_CountdownTimer.countdownOver == false) {
-			SC_CountdownTimer.countdownTime -= interval;
-			SC_CountdownTimer.countdownInternal = SC_CountdownTimer.countdownTime;
-			if (SC_CountdownTimer.countdownInternal < 0) {
-				SC_CountdownTimer.countdownInternal = 0.01f;
-			}
-		}
-
+		SC_CountdownTimer.countdownTime -= interval;
+		SC_CountdownTimer.countdownInternal = SC_CountdownTimer.countdownTime;
 	}
 	//places right/wrong answer on certain sides of the screen
 	void pickText()
@@ -233,32 +224,26 @@ string[] no = {
 	{
 		Score.score += mult*100*Mathf.RoundToInt(SC_CountdownTimer.countdownInternal)
                     / Mathf.RoundToInt(SC_CountdownTimer.countdownTime);
-        if (Score.score > 800) {
-            won = true;
-            rounds = 1;
-        }
 	}
 	//game over screen
 	void endstate()
 	{
-        if (won) {
+        if (Score.score > 800) {
             Question.output.text = "";
     		ChoiceA.output.text = "";
     		ChoiceB.output.text = "";
     		Score.output.text = "";
     		SC_CountdownTimer.countdownInternal = 0f;
-    		MainText.output.text = "You Win!";
+    		MainText.output.text = "You Win! " + Score.score + " Points";
     		start = false;
-    		restart = true;
         } else {
             Question.output.text = "";
     		ChoiceA.output.text = "";
     		ChoiceB.output.text = "";
     		Score.output.text = "";
     		SC_CountdownTimer.countdownInternal = 0f;
-    		MainText.output.text = "Game Over: " + Score.score + " points";
+    		MainText.output.text = "Game Over: " + Score.score + " Points";
     		start = false;
-    		restart = true;
         }
 	}
 
