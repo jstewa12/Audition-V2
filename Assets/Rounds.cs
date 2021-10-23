@@ -98,10 +98,10 @@ string[] no = {
 "Yes, I can sing.  I am a sub-par singer and have little passion for music.", 
 "I am fluent in English and can fluently understand Spanish and Chinese.", 
 "I exercise for 30 minutes every day.  I run around the neighborhood, do push ups, and lift weights.  After every workout, I consume a fast food meal fit for three people.  Who knows why I keep gaining weight…", 
-"I really love dancing, and I have been practicing for the last year.  I am a rather casual dancer and my skills are far from professional level."
+"I really love dancing, and I have been practicing for the last year.  I am a rather casual dancer and my skills are far from professional level.",
 "Acting is the only thing that I have ever been good at.  How else will I pay the bills?",
 "I have been acting all of my life.  It is something that I enjoy, and have been enjoying ever since I could remember.  However, I also have been doing other activities like animation and music production on the side.  I like acting, but in 5 years I may move on with my career.",
-"Yes, going to new places sounds great!  Is this like a vacation?  Will I be able to work less after I’ve travelled there?"
+"Yes, going to new places sounds great!  Is this like a vacation?  Will I be able to work less after I’ve travelled there?",
 "I live 3 miles away, but I have to walk over/need to be picked up in order to arrive on set.",
 "I drool at the mouth and hound them for an autograph. I mean, c’mon, they’re stars!",
 "Yeah, it can be frustrating.  Everyone hopes to make it big and I’m no exception.  Man what I would do for that…",
