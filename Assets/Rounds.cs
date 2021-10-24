@@ -39,8 +39,8 @@ public class Rounds : MonoBehaviour
 	Text roundNum;
 	float interval;
 	bool start;
-    bool won;
-
+	bool warn;
+	
 //array of potential questions: order matters
 //see line 123 if you add questions
 string[] q = {
@@ -123,7 +123,7 @@ string[] no = {
 		SC_CountdownTimer.countdownInternal = 0;
         roundNum = GetComponent<Text>();
         roundNum.text = "Round: " + rounds.ToString();
-        won = false;
+		warn = false;
     }
 	//added to make start/restart much easier
 	void initiate()
@@ -163,6 +163,14 @@ string[] no = {
 			}
 			return;
 		}
+		if (((SC_CountdownTimer.countdownInternal / SC_CountdownTimer.countdownTime) >= .2) && ((SC_CountdownTimer.countdownInternal / SC_CountdownTimer.countdownTime) <= .25))
+            {
+                if (!warn)
+				{
+					warn = true;
+					StartCoroutine(changeBackground(253f, 218f, 13f));
+				}
+            }
 		//used to indicate selection of score, add/subtract points, and move to next round
 		if (Input.GetKeyDown(KeyCode.LeftArrow))
 		{
@@ -216,8 +224,8 @@ string[] no = {
 
     // changes backgrounud color then reverts it background
     IEnumerator changeBackground(float x, float y, float z)
-    {
-        Camera.main.GetComponent<Camera>().backgroundColor =
+    {      
+		Camera.main.GetComponent<Camera>().backgroundColor =
             new Color(x / 255f, y / 255f, z / 255f);
         yield return new WaitForSeconds(0.25f);
         Camera.main.GetComponent<Camera>().backgroundColor =
@@ -232,6 +240,7 @@ string[] no = {
 		MainText.output.text = "";
 		pickText();
         addDistraction();
+		warn = false;
 		Score.output.text = "Score: " + Score.score.ToString();
 		roundNum.text = "Round: " + rounds.ToString();
 		SC_CountdownTimer.countdownTime -= interval;
@@ -242,9 +251,9 @@ string[] no = {
     public void addDistraction()
     {
         addOrNot = (Random.value);
-        if (addOrNot < 0.15) {
+        if (addOrNot < 0.1) {
             Judge.GetComponent<SpriteRenderer>().sprite = UFO;
-        } else if (addOrNot < 0.3) {
+        } else if (addOrNot > .9) {
             Judge.GetComponent<SpriteRenderer>().sprite = cleaner;
         } else {
             Judge.GetComponent<SpriteRenderer>().sprite = null;
@@ -280,6 +289,7 @@ string[] no = {
     		ChoiceA.output.text = "";
     		ChoiceB.output.text = "";
     		Score.output.text = "";
+			judgesHappy = true;
     		SC_CountdownTimer.countdownInternal = 0f;
     		MainText.output.text = "You Win! " + Score.score + " Points";
     		start = false;
@@ -288,8 +298,9 @@ string[] no = {
     		ChoiceA.output.text = "";
     		ChoiceB.output.text = "";
     		Score.output.text = "";
+			judgesHappy = false;
     		SC_CountdownTimer.countdownInternal = 0f;
-    		MainText.output.text = "Game Over: " + Score.score + " Points";
+    		MainText.output.text = "Game Over: " + Score.score + " Points \nPress an Arrow Key to Try Again";
     		start = false;
         }
 	}

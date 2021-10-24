@@ -486,8 +486,10 @@ MonoBehaviour:
   m_Text: '~~~~~ INSTRUCTIONS ~~~~~
 
     Answer as many of the casting directors''
-    questions as you can in 20 seconds, using the left and right arrow keys! Correct
-    answers will get you points, but beware: incorrect answers will lose you points!'
+    questions as you can using the left and right arrow keys! The time for you to
+    respond will decrease as you go. Correct answers will get you points, but beware:
+    incorrect answers or running out of time will lose you points! If you want the
+    job, you''ll need to score at least 800 points.'
 --- !u!222 &1207078091
 CanvasRenderer:
   m_ObjectHideFlags: 0
