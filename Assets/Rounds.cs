@@ -28,7 +28,7 @@ public class Rounds : MonoBehaviour
 	public static float choice;
 	public static int question;
 	public static bool over;
-    public static bool judgesHappy;
+    public static int judgesHappy;  // 0 = neutral, 1 = happy, 2 = angry
     public GameObject Distraction;
     public Sprite cleaner;
     public Sprite UFO;
@@ -186,6 +186,7 @@ string[] no = {
         roundNum = GetComponent<Text>();
         roundNum.text = "Round: " + rounds.ToString();
 		warn = false;
+        judgesHappy = 0;
     }
 	//added to make start/restart much easier
 	void initiate()
@@ -246,11 +247,11 @@ string[] no = {
 			{
 				updateScore(2);
                 StartCoroutine(changeBackground(80f, 200f, 120f));
-                judgesHappy = true;
+                judgesHappy = 1;
 			} else {
 				updateScore(-1);
                 StartCoroutine(changeBackground(238f, 75f, 43f));
-                judgesHappy = false;
+                judgesHappy = 2;
 			}
 			newRound();
             if (rounds != 0) { StartCoroutine(addDistraction()); }
@@ -267,11 +268,11 @@ string[] no = {
 			{
 				updateScore(-1);
                 StartCoroutine(changeBackground(238f, 75f, 43f));
-                judgesHappy = false;
+                judgesHappy = 2;
 			} else {
                 updateScore(2);
                 StartCoroutine(changeBackground(80f, 200f, 120f));
-                judgesHappy = true;
+                judgesHappy = 1;
 			}
 			newRound();
             if (rounds != 0) { StartCoroutine(addDistraction()); }
@@ -356,7 +357,7 @@ string[] no = {
     		ChoiceA.output.text = "";
     		ChoiceB.output.text = "";
     		Score.output.text = "";
-			judgesHappy = true;
+			judgesHappy = 1;
     		SC_CountdownTimer.countdownInternal = 0f;
     		MainText.output.text = "You Win! " + Score.score + " Points";
     		start = false;
@@ -365,7 +366,7 @@ string[] no = {
     		ChoiceA.output.text = "";
     		ChoiceB.output.text = "";
     		Score.output.text = "";
-			judgesHappy = false;
+			judgesHappy = 2;
     		SC_CountdownTimer.countdownInternal = 0f;
     		MainText.output.text = "Game Over: " + Score.score + " Points \nPress an Arrow Key to Try Again";
     		start = false;

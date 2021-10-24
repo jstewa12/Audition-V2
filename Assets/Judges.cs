@@ -16,11 +16,13 @@ public class Judges : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Rounds.judgesHappy == false)
+        if (Rounds.judgesHappy == 0)
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = angryJudges;
-        } else {
+            gameObject.GetComponent<SpriteRenderer>().sprite = neutralJudges;
+        } else if (Rounds.judgesHappy == 1) {
             gameObject.GetComponent<SpriteRenderer>().sprite = happyJudges;
+        } else {
+            gameObject.GetComponent<SpriteRenderer>().sprite = angryJudges;
         }
     }
 }
