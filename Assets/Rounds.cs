@@ -54,6 +54,7 @@ string[] q = {
 "How athletic/healthy is your lifestyle?  We want our actors as physically fit as possible.", 
 "You may need to dance for your role.  How experienced are you at dancing?",
 "What is your favorite part of acting?",
+"Where do you see yourself in 5 years?",
 "How long have you been acting for?",
 "We may need you to be flexible in terms of where you are working.  Every so often, you may have to travel around the country or even to other countries.",
 "How far away do you live from the place where we are filming?",
@@ -62,11 +63,32 @@ string[] q = {
 "How do you research and approach a new role?",
 "Your character may have a foreign accent.  How experienced are you in imitating foreign accents?",
 "What do you think of the acting community?",
-"Obviously, acting for various roles involves a lot of flexibility.  No two characters are exactly alike.  How do you handle this?"
+"Obviously, acting for various roles involves a lot of flexibility.  No two characters are exactly alike.  How do you handle this?",
+"Obviously, acting for various roles involves a lot of flexibility.  No two characters are exactly alike.  How do you handle this?",
+"If you were given a 5 minute break during rehearsal, how would you spend that time?",
+"Actors are required to memorize scripts.  Is this something that you think you could handle?",
+"Everyone experiences setbacks at some point in time.  How would you handle one?",
+"Tell me about your education.",
+"What do you think of working long hours?  It often takes a lot of endurance.",
+"How would you like to improve as an actor?",
+"If you could create a play or movie about anything, what would be the topic?",
+"When you want to practice acting, where do you go?",
+"How would you define success in this career?",
+"What do you think the most important quality of a director is?",
+"What do you feel is more important as an actor: talent or training?",
+"How do you react when you receive a negative review on your performance?",
+"What does your ideal Sunday look like?",
+"What have you done to improve your knowledge of acting in the last year?",
+"Tell me about a time you had to think strategically?",
+"Tell me about a time you disagreed with someone at work.",
+"How would your friends describe you?",
+"Tell me about a time that you faced an emergency.  How did you handle it?",
+"How would you rehearse a scene if your scene partners are not around?",
+"What have you learned from actors who have more experience?"
 };
-//test
-//array of correct answers: order matters
-string[] yes = {"I do takes consistently well, but am able to take director’s notes!", 
+
+string[] yes = {
+"I do takes consistently well, but am able to take director’s notes!", 
 "I try to get into the headspace of my character, through mental, emotional, and physical methods", 
 "I can be pretty shy between takes, but I treat coworkers with respect and get my job done well",
 "Anything goes, no matter how I’m portrayed!",
@@ -85,10 +107,30 @@ string[] yes = {"I do takes consistently well, but am able to take director’s 
 "If this character was a real person, I typically do some online research about their history.  If the character is fictitious, I read the script more than once, attempting to internalize their personality.  After that, I take a walk to clear my head and put myself in the right mental state for acting.",
 "Accents are something that I have to work very hard at.  After years of work with my accent coach, I have perfected 2 different English accents and 5 different non-English accents.",
 "I love the acting community!  The people here are the absolute nicest people I have ever met.  Most of my friends are into acting, and it helps us form strong connections with each other.  This community is one of the reasons I enjoy acting so much in the first place.",
-"I am great at adapting to new roles.  As long as I get into the right mental state, I find that no matter the character I am playing, it is easy to replicate their behavior."
+"I am great at adapting to new roles.  As long as I get into the right mental state, I find that no matter the character I am playing, it is easy to replicate their behavior.",
+"I am great at adapting to new roles.  As long as I get into the right mental state, I find that no matter the character I am playing, it is easy to replicate their behavior.",
+"5 minutes is not that long, so I’d spend some of the time relaxing and the rest of the time quickly thinking about my work plan for after the break",
+"Memorizing scripts is not easy, but I can handle it!  I have memorized many scripts throughout my career and can still recite them when needed.",
+"Setbacks are always disheartening and disappointing, but we simply have to accept them.  Letting a setback drag me down will impact my future progression, so I would reflect on what I should have done differently and move on with life.",
+"In high school, I participated in theater.  At university, I earned a degree in drama.",
+"Acting is my passion, so I am plenty happy to work for most of the day.",
+"I wish I was better at playing comedic characters.  I have more experience playing serious characters, so I have a harder time playing a comedic character.",
+"I love the history of this country and think that there are many stories about its founding that would become a good play or movie.",
+"My friend and I simply meet up at my house and we practice there together.  We don’t need a fancy place to practice!",
+"Well, that’s difficult to define.  Success can come from a variety of sources.  However, I think the most important one is the amount that my work positively impacts the world.  The more my work helps the world, the more successful I am!",
+"I think compassion goes a long way.  Being understanding of my situation certainly helps me out, and overall improves my performance at work.",
+"I think that training is the most important part of being an actor.  While talent is important, training allows an actor to adapt and learn to any situation.",
+"It makes me unhappy, but I understand that I am not flawless.  Every bit of input I get makes me a better actor in the long run!",
+"I work very hard throughout the week, and love to relax!  I often go for walks and occasionally spend the weekend camping in nature.",
+"I like to observe and learn from other actors.  I talk to my friends who are into acting and try to learn from their strengths.",
+"Once, we were very limited on staff--even our supervisor was absent.  I had to make sure to assign people roles that would best suit their strengths, and ensure that every job was accounted for.",
+"I was told that we needed more extras for our movie.  I thought that this was excessive and would impact our budget.  We ended up compromising and hiring only a few extra actors.",
+"My friends say that I have a great work ethic and they always remark on my extreme passion for acting.",
+"I was rehearsing with a co-worker when he fell and hit his head.  He was unconscious, so I called 911 and followed their instructions while waiting for the ambulance.",
+"My ability to act is not impacted by my surroundings.  To act is to pretend, and it is quite easy to perform no differently whether or not my scene partners are actually in the room.",
+"I learned that nobody is a perfect actor.  Even actors who have a lot of experience are constantly working to improve themselves.  As someone with less experience, I have a long way to go!"
 };
 
-//array of incorrect answers: order matters
 string[] no = {
 "I get shy in front of cameras and often miss my marks for staging", 
 "I often go off script or improvise based on what I feel I would do in the character’s situation.", 
@@ -101,6 +143,7 @@ string[] no = {
 "I really love dancing, and I have been practicing for the last year.  I am a rather casual dancer and my skills are far from professional level.",
 "Acting is the only thing that I have ever been good at.  How else will I pay the bills?",
 "I have been acting all of my life.  It is something that I enjoy, and have been enjoying ever since I could remember.  However, I also have been doing other activities like animation and music production on the side.  I like acting, but in 5 years I may move on with my career.",
+"I have been acting for as long as I can remember.  I started when I was 8 years old, in a school play.  My acting career took a long break from high school through college, but recently I began to find interest in it again.",
 "Yes, going to new places sounds great!  Is this like a vacation?  Will I be able to work less after I’ve travelled there?",
 "I live 3 miles away, but I have to walk over/need to be picked up in order to arrive on set.",
 "I drool at the mouth and hound them for an autograph. I mean, c’mon, they’re stars!",
@@ -108,8 +151,30 @@ string[] no = {
 "I jump right into the role.  Researching takes time, and that time is better spent with practice in my opinion.  I may not be able to perfect the role, but I’m a bit quicker when we get started without preparation.",
 "Foreign accents are something that come naturally to me.  I can speak in an Australian accent quite easily, but I’ve never tried to imitate anything else.",
 "I get along very well with the community.  I very rarely make friends with other people who like acting, but I can work with them in a professional setting.",
-"I’m very used to playing the main villain.  I’ve done it so much that I’m extremely good at it.  I can switch between villain roles with ease.  However, I feel out of my element when I try to play any other role."
+"I’m very used to playing the main villain.  I’ve done it so much that I’m extremely good at it.  I can switch between villain roles with ease.  However, I feel out of my element when I try to play any other role.",
+"I’m very used to playing the main villain.  I’ve done it so much that I’m extremely good at it.  I can switch between villain roles with ease.",
+"I would go for a walk.  It helps clear the mind, but I may not return on time",
+"My favorite part of acting is improv since I’m not particularly good at memorizing anything.  Often, I find memorizing scripts to be boring and detrimental to the acting experience",
+"As with many people, setbacks make me incredibly angry.  No setbacks are acceptable since they are a sign of weakness.  I don’t deal with setbacks because they rarely happen to me.",
+"From an academic standpoint, I did a lot of my acting in high school drama class.  At university, I decided to pursue computer science instead.",
+"Acting is my favorite thing in the world to do.  So, you would expect that I could act for a long time… but honestly I get burnt out really quickly.",
+"After a hard day of acting, I often become a bit grumpy.  This negatively impacts both my acting ability and my interactions with co-workers, so I’d like to improve by remaining cordial throughout the day.",
+"I would create an autobiographical film.  As an upcoming star, I want to document my rise to fame… mostly to show off how great I am and to intimidate the competition.",
+"I typically go to the nearest Starbucks and order a coffee with a friend.  Then, we practice our acting skills in the middle of the store to make sure the other customers can see how amazing our skills are.",
+"Success is very easy to measure in the acting career!  Every dollar an actor earns is proportional to his or her success.  The only good actors are the ones whose careers lead them to millions of dollars.",
+"The best quality of a director is having a huge budget.  The larger the budget, the bigger the project we can work on… and the more you can pay me.",
+"Talent is the most important part of being an actor.  I am so unbelievably talented that I have never needed to train.  Everything comes effortlessly to me and I am the perfect actor for this role.",
+"I get very angry.  How dare they insult my acting ability!",
+"I like to watch movies over the weekend!  To be honest, I’m a bit of a hypocrite because I usually pirate my movies.",
+"I hang out with my friends who like acting.  I like to think that their acting knowledge will magically rub off into my brain, so I have to do very little work",
+"Once, I had to think about what to eat for lunch and dinner.  If I ate the pizza for lunch, then I won’t have pizza for dinner… but if I ate the pizza for dinner, then I won’t have pizza for lunch…",
+"I was taking a break while my co-workers were rehearsing.  I was told that I was too noisy, but obviously I wasn’t!  How very rude of them to suggest that.",
+"My friends don’t have any opinions about me.  That’s because… I have no friends.",
+"I once noticed a thief stealing from our studio.  None of the items were personally mine, so I let the thief go.",
+"This has actually happened to me before.  I ended up taking the day off.  What is the point of practicing when I’m all alone?",
+"Considering how much more experience they have, I learned that I am quite good at acting.  I am just as good as them, even despite my lesser experience."
 };
+
 
 
 
@@ -264,7 +329,7 @@ string[] no = {
 	void pickText()
 	{
 		choice = (Random.value);
-		question = Mathf.RoundToInt(Random.value * 16);
+		question = Mathf.RoundToInt(Random.value * 39);
 		Question.output.text = q[question];
 		if (choice > .5)
 		{
