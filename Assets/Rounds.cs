@@ -16,9 +16,6 @@
 //first round is occasionally weird with text
 
 
-
-
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +29,7 @@ public class Rounds : MonoBehaviour
 	public static int question;
 	public static bool over;
     public static bool judgesHappy;
-    public GameObject Judge;
+    public GameObject Distraction;
     public Sprite cleaner;
     public Sprite UFO;
     float addOrNot;
@@ -44,14 +41,14 @@ public class Rounds : MonoBehaviour
 //array of potential questions: order matters
 //see line 123 if you add questions
 string[] q = {
-"How do you do in front of the camera?", 
-"What is your approach to acting in general?", 
-"How do you work with other actors, as well as crew and directors?", 
-"How do you feel about being included in promotional materials?", 
-"How would you describe your work ethic?", 
-"Do you know how to sing?", 
-"How many languages can you speak?  Your character may need to speak non-English languages.", 
-"How athletic/healthy is your lifestyle?  We want our actors as physically fit as possible.", 
+"How do you do in front of the camera?",
+"What is your approach to acting in general?",
+"How do you work with other actors, as well as crew and directors?",
+"How do you feel about being included in promotional materials?",
+"How would you describe your work ethic?",
+"Do you know how to sing?",
+"How many languages can you speak?  Your character may need to speak non-English languages.",
+"How athletic/healthy is your lifestyle?  We want our actors as physically fit as possible.",
 "You may need to dance for your role.  How experienced are you at dancing?",
 "What is your favorite part of acting?",
 "How long have you been acting for?",
@@ -66,14 +63,14 @@ string[] q = {
 };
 //test
 //array of correct answers: order matters
-string[] yes = {"I do takes consistently well, but am able to take director’s notes!", 
-"I try to get into the headspace of my character, through mental, emotional, and physical methods", 
+string[] yes = {"I do takes consistently well, but am able to take director’s notes!",
+"I try to get into the headspace of my character, through mental, emotional, and physical methods",
 "I can be pretty shy between takes, but I treat coworkers with respect and get my job done well",
 "Anything goes, no matter how I’m portrayed!",
-"I work hard and always show up to work on time.  Whenever I am on set, I am giving 100% effort.  I only call off work when there’s an emergency.", 
-"No, I cannot sing.  I am eager to learn how and am willing to spend my free time practicing.", 
-"I am fluent in English and can speak a little bit of German.", 
-"Every morning, I manage to find time to go for a good run.", 
+"I work hard and always show up to work on time.  Whenever I am on set, I am giving 100% effort.  I only call off work when there’s an emergency.",
+"No, I cannot sing.  I am eager to learn how and am willing to spend my free time practicing.",
+"I am fluent in English and can speak a little bit of German.",
+"Every morning, I manage to find time to go for a good run.",
 "I have been dancing since I was 8 years old.  I took a break for several years during university, but now I have been practicing again.",
 "I really enjoy the freedom that comes with acting.  I can be whomever I want to be, as long as there’s a role for it.  The escape from reality has fascinated me… ever since I was a young child.",
 "I hope to continuously improve my acting career.  Over the next 5 years, I want to gain as much acting experience and knowledge as possible.  While I may not become the most famous actor, I want to have a very successful career in this field.",
@@ -90,14 +87,14 @@ string[] yes = {"I do takes consistently well, but am able to take director’s 
 
 //array of incorrect answers: order matters
 string[] no = {
-"I get shy in front of cameras and often miss my marks for staging", 
-"I often go off script or improvise based on what I feel I would do in the character’s situation.", 
+"I get shy in front of cameras and often miss my marks for staging",
+"I often go off script or improvise based on what I feel I would do in the character’s situation.",
 "I’m very outgoing and sociable, but shoots take longer as its harder to get me refocused after we cut",
-"I won’t do it unless I discuss with my lawyer!", 
-"I work hard!  Typically, I’m only a few minutes late to work.  I may require more breaks than my co-workers, but I do put in effort during the work day.", 
-"Yes, I can sing.  I am a sub-par singer and have little passion for music.", 
-"I am fluent in English and can fluently understand Spanish and Chinese.", 
-"I exercise for 30 minutes every day.  I run around the neighborhood, do push ups, and lift weights.  After every workout, I consume a fast food meal fit for three people.  Who knows why I keep gaining weight…", 
+"I won’t do it unless I discuss with my lawyer!",
+"I work hard!  Typically, I’m only a few minutes late to work.  I may require more breaks than my co-workers, but I do put in effort during the work day.",
+"Yes, I can sing.  I am a sub-par singer and have little passion for music.",
+"I am fluent in English and can fluently understand Spanish and Chinese.",
+"I exercise for 30 minutes every day.  I run around the neighborhood, do push ups, and lift weights.  After every workout, I consume a fast food meal fit for three people.  Who knows why I keep gaining weight…",
 "I really love dancing, and I have been practicing for the last year.  I am a rather casual dancer and my skills are far from professional level.",
 "Acting is the only thing that I have ever been good at.  How else will I pay the bills?",
 "I have been acting all of my life.  It is something that I enjoy, and have been enjoying ever since I could remember.  However, I also have been doing other activities like animation and music production on the side.  I like acting, but in 5 years I may move on with my career.",
@@ -183,6 +180,7 @@ string[] no = {
                 judgesHappy = false;
 			}
 			newRound();
+            if (rounds != 0) { StartCoroutine(addDistraction()); }
 		}
 		if (Input.GetKeyDown(KeyCode.RightArrow))
 		{
@@ -198,11 +196,12 @@ string[] no = {
                 StartCoroutine(changeBackground(238f, 75f, 43f));
                 judgesHappy = false;
 			} else {
-				updateScore(2);
+                updateScore(2);
                 StartCoroutine(changeBackground(80f, 200f, 120f));
                 judgesHappy = true;
 			}
 			newRound();
+            if (rounds != 0) { StartCoroutine(addDistraction()); }
 		}
 		//if countdown finishes
 		if (SC_CountdownTimer.countdownOver && start)
@@ -231,7 +230,6 @@ string[] no = {
 		rounds = rounds - 1;
 		MainText.output.text = "";
 		pickText();
-        addDistraction();
 		Score.output.text = "Score: " + Score.score.ToString();
 		roundNum.text = "Round: " + rounds.ToString();
 		SC_CountdownTimer.countdownTime -= interval;
@@ -239,16 +237,19 @@ string[] no = {
 	}
 
     // add distraction into play field
-    public void addDistraction()
+    IEnumerator addDistraction()
     {
         addOrNot = (Random.value);
-        if (addOrNot < 0.15) {
-            Judge.GetComponent<SpriteRenderer>().sprite = UFO;
-        } else if (addOrNot < 0.3) {
-            Judge.GetComponent<SpriteRenderer>().sprite = cleaner;
-        } else {
-            Judge.GetComponent<SpriteRenderer>().sprite = null;
+        if (addOrNot < 0.2f) {
+            Debug.Log("adding a UFO");
+            Distraction.GetComponent<SpriteRenderer>().sprite = UFO;
+        } else if (addOrNot < 0.4f) {
+            Debug.Log("adding a cleaner");
+            Distraction.GetComponent<SpriteRenderer>().sprite = cleaner;
         }
+
+        yield return new WaitForSeconds(1.25f);
+        Distraction.GetComponent<SpriteRenderer>().sprite = null;
     }
 
 	//places right/wrong answer on certain sides of the screen
