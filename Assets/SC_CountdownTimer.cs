@@ -36,11 +36,6 @@ public class SC_CountdownTimer : MonoBehaviour
         {
             countdownInternal -= Time.deltaTime;
 
-            if ((countdownInternal <= 5) && (countdownInternal >= 4))
-            {
-                StartCoroutine(changeBackground(253f, 218f, 13f));
-            }
-
             //Clamp the timer value so it never goes below 0
             if (countdownInternal < 0)
             {
