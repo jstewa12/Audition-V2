@@ -185,8 +185,6 @@ string[] no = {
 		SC_CountdownTimer.countdownInternal = 0;
         roundNum = GetComponent<Text>();
         roundNum.text = "Round: " + rounds.ToString();
-		warn = false;
-        judgesHappy = 0;
     }
 	//added to make start/restart much easier
 	void initiate()
@@ -207,6 +205,8 @@ string[] no = {
 		//currently linear, maybe try non-linear
 		interval = SC_CountdownTimer.countdownTime / (rounds);
 		MainText.output.text = "";
+		warn = false;
+        judgesHappy = 0;
 		newRound();
 	}
 
@@ -315,16 +315,16 @@ string[] no = {
     // add distraction into play field
     IEnumerator addDistraction()
     {
-        addOrNot = (Random.value);
+		addOrNot = (Random.value);
         if (addOrNot < 0.1) {
             Distraction.GetComponent<SpriteRenderer>().sprite = UFO;
         } else if (addOrNot > .9) {
             Distraction.GetComponent<SpriteRenderer>().sprite = cleaner;
-        } else {
+        } /*else {
             Distraction.GetComponent<SpriteRenderer>().sprite = null;
-        }
+        }*/
 
-        yield return new WaitForSeconds(1.25f);
+        yield return new WaitForSeconds(2);
         Distraction.GetComponent<SpriteRenderer>().sprite = null;
     }
 
